@@ -6,8 +6,7 @@
 	<version>1.0.0-SNAPSHOT</version>
 
     <properties>
-<!--        <v4.sdk.version>1.14.1</v4.sdk.version>-->
-<!--        <v4.schema.version>1.9.95</v4.schema.version>-->
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <scala.version>2.12.8</scala.version>
@@ -16,21 +15,6 @@
         <gatling-plugin.version>3.0.2</gatling-plugin.version>
         <scala-maven-plugin.version>4.0.1</scala-maven-plugin.version>
     </properties>
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>central-nexus-proxy</id>-->
-<!--            <name>central-nexus proxy</name>-->
-<!--            <url>https://nexus.intuit.com/nexus/content/groups/public</url>-->
-<!--            <releases>-->
-<!--                <enabled>true</enabled>-->
-<!--                <updatePolicy>daily</updatePolicy>-->
-<!--                <checksumPolicy>ignore</checksumPolicy>-->
-<!--            </releases>-->
-<!--            <snapshots>-->
-<!--                <enabled>true</enabled>-->
-<!--            </snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
     <dependencyManagement>
     <dependencies>
         <dependency>
