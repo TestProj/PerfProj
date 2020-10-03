@@ -1,0 +1,17 @@
+#!/bin/bash
+set -e
+
+IMAGEID_GATLING=$( docker images -q perfproj/gatling )
+IMAGEID_GATLING_MERGE=$( docker images -q perfproj/gatlingmerge )
+
+if [ ! -z "${DNAME}" ] && [ ! -z "${DPASS}" ];
+then
+  docker login -u "${DNAME}" -p "${DPASS}";
+  #Push to docker hub repository with latest tag
+  docker tag ${IMAGEID_GATLING} perfproj/gatling:latest
+  docker push perfproj/gatling:latest;
+  docker tag ${IMAGEID_GATLING} perfproj/gatlingmerge:latest
+  docker push perfproj/gatlingmerge:latest;
+else
+  echo "No docker credentials provided. Skip uploading perfproj/gatling:latest to docker hub";
+fi;
