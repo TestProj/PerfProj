@@ -7,8 +7,8 @@
 FROM openjdk:8-jdk-alpine
 
 LABEL \
-        author="sumit_nagal@intuit.com" \
-        email="sumit_nagal@intuit.com" \
+        author="Sumit Nagal" \
+        email="sumitnagal@gmail.com" \
         version="1.0.0" \
         description="Gatling test in a docker"
 
