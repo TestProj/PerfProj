@@ -23,7 +23,7 @@
 	<logger name="io.gatling.http.response" level="TRACE" />
 
 	<root level="ERROR">
-		<!--<root level="TRACE">-->
+<!--		<root level="TRACE">-->
 		<appender-ref ref="CONSOLE" />
 	</root>
 

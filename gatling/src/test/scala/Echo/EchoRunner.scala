@@ -1,10 +1,5 @@
 package Echo
 
-import common._
-import com.typesafe.config._
-import java.text.SimpleDateFormat
-import java.util.{Date, TimeZone}
-
 import io.gatling.core.Predef._
 import io.gatling.core.structure.ChainBuilder
 import io.gatling.http.Predef._
@@ -16,7 +11,7 @@ object EchoRunner {
 
     val logger = org.slf4j.LoggerFactory.getLogger(this.getClass)
     val requestPayload = payload
-    val requestPath = "/health/full"
+    val requestPath = "/health"
 
     val op_post =
 
@@ -46,10 +41,6 @@ object EchoRunner {
       exec(
         http(requestName)
           .get(requestPath)
-            .header("Accept","text/plain")
-//          .header("Accept","application/json")
-          .header("Content-Type","application/json; charset=UTF-8")
-          .header("Accept-Encoding","gzip,deflate")
           .check(status.is(200))
           .check(status.saveAs("HttpStatus"))
           .check(responseTimeInMillis.saveAs("execLatency"))

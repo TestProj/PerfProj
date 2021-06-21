@@ -1,46 +1,28 @@
 package Echo
 
-import java.text.SimpleDateFormat
-import java.util
-import java.util.{Date, TimeZone}
-
-import scala.collection.JavaConversions._
-import scala.util.parsing.json.JSON
-
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.core.Predef._
-import io.gatling.core.structure.PopulationBuilder
-import jdk.nashorn.internal.parser.JSONParser
 
-import scala.collection.mutable
-import scala.concurrent.duration._
-import scala.io.Source
-import org.apache.commons.lang3.StringEscapeUtils
-
-import scala.concurrent.duration._
+import scala.language.postfixOps
 
 class EchoSimulation extends Simulation {
 
   val logger = org.slf4j.LoggerFactory.getLogger(this.getClass)
 
-  System.setProperty("sse.enableSNIExtension", "false");
+//  System.setProperty("sse.enableSNIExtension", "false");
   var BASE_URL = System.getProperty("url", "http://localhost:8080").toString
   var baseurl=""
-  var query = System.getProperty("query", "/").toString
+  var query = System.getProperty("query", "/health").toString
 
   var httpProtocol = http;
 
   httpProtocol = http
     .baseUrl(BASE_URL)
-    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+    .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") // Here are the common headers
     .acceptEncodingHeader("gzip, deflate")
     .acceptLanguageHeader("en-US,en;q=0.5")
-    .connectionHeader("keep-alive")
-    .doNotTrackHeader("1")
-    .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:1.0) Gecko/20100101 Firefox/19.0")
+    .userAgentHeader("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0")
     .header("Referer", BASE_URL)
-    .disableCaching
 
 
   /** *TPS Injection ***/
@@ -55,8 +37,10 @@ class EchoSimulation extends Simulation {
 
   setUp(
     EchoScenario.inject(
-      rampUsersPerSec(0.5) to npeakTps.toDouble during (nrampUpTime.toInt minutes),
-      constantUsersPerSec(npeakTps.toDouble) during (nsteadyStateTime.toInt minutes)
+      rampUsersPerSec(0.5) to npeakTps.toDouble during (nrampUpTime.toInt),
+      constantUsersPerSec(npeakTps.toDouble) during (nsteadyStateTime.toInt),
+      atOnceUsers(1)
+
     )
   ).protocols(httpProtocol)
 }
